@@ -67,24 +67,24 @@ Inside `api/actions/actions-router.js` build endpoints for performing CRUD opera
 
 - [ x ] `[GET] /api/actions`
   - Returns an array of actions (or an empty array) as the body of the response.
-- [ ] `[GET] /api/actions/:id`
+- [ x ] `[GET] /api/actions/:id`
   - Returns an action with the given `id` as the body of the response.
   - If there is no action with the given `id` it responds with a status code 404.
-- [ ] `[POST] /api/actions`
+- [ x ] `[POST] /api/actions`
   - Returns the newly created action as the body of the response.
   - If the request body is missing any of the required fields it responds with a status code 400.
   - When adding an action make sure the `project_id` provided belongs to an existing `project`.
-- [ ] `[PUT] /api/actions/:id`
+- [ x ] `[PUT] /api/actions/:id`
   - Returns the updated action as the body of the response.
   - If there is no action with the given `id` it responds with a status code 404.
   - If the request body is missing any of the required fields it responds with a status code 400.
-- [ ] `[DELETE] /api/actions/:id`
+- [ x ] `[DELETE] /api/actions/:id`
   - Returns no response body.
   - If there is no action with the given `id` it responds with a status code 404.
 
 #### Middleware functions
 
-- [ ] Write at least two middleware functions for this API, and consume them in the proper places of your code.
+- [ x ] Write at least two middleware functions for this API, and consume them in the proper places of your code.
 
 ### Database Schemas
 
@@ -137,17 +137,33 @@ We have provided test data for all the resources.
 
 ## Submission format
 
-- [ ] Submit via Codegrade by pushing commits to your `main` branch.
-- [ ] Check Codegrade before the deadline to compare its results against your local tests.
-- [ ] Check Codegrade on the days following the Sprint Challenge for reviewer feedback.
-- [ ] New commits will be evaluated by Codegrade if pushed _before_ the sprint challenge deadline.
+- [ x ] Submit via Codegrade by pushing commits to your `main` branch.
+- [ x ] Check Codegrade before the deadline to compare its results against your local tests.
+- [ x ] Check Codegrade on the days following the Sprint Challenge for reviewer feedback.
+- [ x ] New commits will be evaluated by Codegrade if pushed _before_ the sprint challenge deadline.
 
 ## Interview Questions
 
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. The core features of Node.js and Express and why they are useful.
+
+Node.js and express work hand in hand to be able to build a basic web server. node allows us to utilize the NPM libraries for our API's and local servers. asynchronous functions allow us to execute certain code snippets under certain conditions. Express allows us to utilize middleware, routing and building RESTful API servers.
+
 1. Understand and explain the use of Middleware.
+
+middleware functions are functions that have access to the req object, the res object and the next function in the applications request-response cycle. It can really help us fine-tune the interaction between the request and web server.
+
 1. The basic principles of the REST architectural style.
+
+rest is a architectural style that defines the set of rules to be used for creating web services. It allows requesting systems to access and manipulate web resources by using a predefined set of rules. interactions in REST based systems happen through HTTP
+
 1. Understand and explain the use of Express Routers.
+
+Routers determine how an application responds to the given request to an endpoint/HTTP request
+
 1. Describe tooling used to manually test the correctness of an API.
+
+These tools can simulate a request and determine responses from the API server. My preferred tool is HTTPIE (thanks for the suggestion, Gabe.)
+
+although, postman has a nice GUI. The full description of the request and response in HTTPIE is phenomenal for testing endpoints.
