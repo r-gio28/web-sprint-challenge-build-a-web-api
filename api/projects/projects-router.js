@@ -31,11 +31,11 @@ router.post('/', (req, res) => {
     const newProject = req.body;
     if(newProject.name && newProject.description) {
         Projects.insert(newProject)
-        .then ( project => {
+        .then(project => {
             res.status(201).json(project)
         })
         .catch ( error => {
-            console.log(error)
+            console.log(error);
             res.status(500).json({
                 message: "Error ocurred while fetching projects"
             })
@@ -47,10 +47,28 @@ router.post('/', (req, res) => {
     }
 })
 
-router.put('/:id', validateProjectId, validateProject, async (req, res, next) => {
+router.put('/:id', validateProjectId, validateProject, async (req, res) => {
     const updatedProject = await Projects.update(req.params.id, req.body)
     res.status(200).json(updatedProject)
 })
 
+router.delete('/:id', validateProjectId, (req, res, next) => {
+    Projects.remove(req.params.id)
+    .then(() => {
+        res.status(200).json({ message: "Project was successfully deleted!"})
+    })
+        .catch(next);
+})
 
+router.get('/:id/actions', validateProjectId, async (req, res, next) => {
+    try {
+        const projectActions = await Projects.getProjectActions(req.params.id)
+        res.json(projectActions)
+    } catch (err) {
+        next(err)
+    }
+})
+    
+router.use(handleError);    
+    
 module.exports = router;

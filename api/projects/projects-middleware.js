@@ -3,7 +3,7 @@ const Projects = require('./projects-model')
 const yup = require('yup')
 
 function handleError(err, req, res, next) {
-    res.status(err.status || 500 ).json({
+    res.status(err.status || 500).json({
         message: err.message,
         prodMessage: 'oh no, something went wrong!'
     })
@@ -23,7 +23,7 @@ async function validateProject(req, res, next) {
                 message: "The following fields are required!"
             })
         } else {
-            res.status(404).json
+            next();
         }
     } catch (err) {
         next(err);
@@ -33,10 +33,9 @@ async function validateProject(req, res, next) {
 async function validateProjectId(req, res, next) {
     try {
         const project = await Projects.get(req.params.id)
-
         if (project) {
             req.project = project
-            next()
+            next();
         } else {
             res.status(404).json({
                 message: "desired project not found"
