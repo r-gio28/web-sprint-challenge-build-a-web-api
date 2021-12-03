@@ -1,5 +1,6 @@
 // Write your "projects" router here!
 const express = require('express')
+const { handleError, validateProject, validateProjectId, } = require('./projects-middleware')
 const Projects = require('./projects-model')
 const router = express.Router()
 
@@ -22,23 +23,8 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
-    Projects.get(req.params.id)
-    .then( project => {
-        if (project) {
-            res.status(200).json(project)
-        } else {
-            res.status(404).json({
-                message: "Project with requested id was not found"
-            })
-        }
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(500).json({
-            message: "Error ocurred while fetching projects"
-        })
-    }) 
+router.get('/:id', validateProjectId, (req, res, next) => {
+    res.status(200).json(req.project)
 })
 
 router.post('/', (req, res) => {
@@ -60,4 +46,11 @@ router.post('/', (req, res) => {
         })
     }
 })
+
+router.put('/:id', validateProjectId, validateProject, async (req, res, next) => {
+    const updatedProject = await Projects.update(req.params.id, req.body)
+    res.status(200).json(updatedProject)
+})
+
+
 module.exports = router;
